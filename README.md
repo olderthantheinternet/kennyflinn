@@ -19,18 +19,14 @@ The visual system uses black, charcoal grey, midnight blue, medium blue, ivory, 
 
 ## Deploy to GitHub Pages
 
-This repo is a static site. No build step is required.
+This repo is a static site. No local build step is required. Pushes to `main` deploy through [GitHub Actions](.github/workflows/deploy-pages.yml).
 
 1. Push to the `main` branch of `olderthantheinternet/kennyflinn`.
-2. In GitHub: **Settings → Pages**.
-3. Set **Source** to **Deploy from a branch**.
-4. Choose branch `main` and folder `/ (root)`, then save.
-5. Interim URL: `https://olderthantheinternet.github.io/kennyflnn/`
-6. Under **Custom domain**, enter `kennyflynn.com` and save.
-7. After DNS validates and the certificate is issued, enable **Enforce HTTPS**.
-8. Optionally set the repository homepage to `https://kennyflynn.com`.
-
-The root [`CNAME`](CNAME) file already contains `kennyflynn.com`.
+2. In GitHub: **Settings → Pages**, confirm **Source** is **GitHub Actions**.
+3. Interim URL: `https://olderthantheinternet.github.io/kennyflinn/`
+4. Under **Custom domain**, enter `kennyflynn.com` and save (the root [`CNAME`](CNAME) file already contains this).
+5. After DNS validates and the certificate is issued, enable **Enforce HTTPS**.
+6. Optionally set the repository homepage to `https://kennyflynn.com`.
 
 ## Connect Web3Forms
 
