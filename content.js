@@ -16,6 +16,10 @@ window.KENNY_FLYNN_SITE = Object.freeze({
   formEndpoint: "https://api.web3forms.com/submit",
   galleryEmail: "kgable38@gmail.com",
   galleryManifestUrl: "assets/gallery/manifest.json",
+  support: {
+    navLabel: "Support Cassidie Flynn",
+    url: "https://www.gofundme.com/f/KennyFlynn?attribution_id=sl:9d3ab41e-44c7-41b3-93e5-540d5364259f"
+  },
   event: {
     label: "Celebration of Life",
     date: "Saturday, August 22, 2026",
