@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-labelledby="title desc">
+  <title id="title">Kenny Flynn monogram</title>
+  <desc id="desc">An elegant KF monogram in tan and ivory on dark blue.</desc>
+  <circle cx="110" cy="110" r="103" fill="#071522" stroke="#C9A071" stroke-width="2"/>
+  <circle cx="110" cy="110" r="88" fill="none" stroke="#C9A071" stroke-opacity=".35"/>
+  <path d="M64 52v116M64 110l62-58M64 110l66 58" fill="none" stroke="#F5F1EA" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M138 52h24M138 52v116M138 109h20" fill="none" stroke="#C9A071" stroke-width="8" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,17 @@
+{
+  "name": "Kenny Flynn | A Celebration of Life",
+  "short_name": "Kenny Flynn",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05080d",
+  "theme_color": "#071522",
+  "description": "A memorial honoring Kenny Flynn and his legacy in Atlanta nightlife.",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

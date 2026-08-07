@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Note | Kenny Flynn Memorial</title>
+  <meta name="description" content="Plain-language privacy information for memory submissions to the Kenny Flynn memorial.">
+  <meta name="theme-color" content="#071522">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header is-scrolled">
+    <div class="header-inner">
+      <a class="wordmark" href="index.html" aria-label="Return to Kenny Flynn memorial home"><span>Kenny Flynn</span></a>
+      <a class="button button-secondary" href="index.html#memories">Share a Memory</a>
+    </div>
+  </header>
+
+  <main class="legal-page">
+    <article class="legal-shell">
+      <p class="section-number">Privacy</p>
+      <h1>A plain-language privacy note.</h1>
+      <p>This memorial may collect the information you choose to submit through the memory form, including your name, email address, relationship to Kenny, written memory, and an optional link to a photo or video.</p>
+
+      <h2>How submissions may be used</h2>
+      <p>Submissions may be reviewed for accuracy, safety, and relevance. Approved memories may be edited lightly for spelling or length and published on KennyFlynn.com. Your email address will not be displayed publicly.</p>
+
+      <h2>Contact and removal</h2>
+      <p>The memorial organizer may use your email only to clarify your submission or discuss permission to publish related media. To correct or remove a submission, send a private request through the form below. No public memorial email address is used.</p>
+
+      <form class="memory-form legal-request-form" id="privacy-form" name="kenny-flynn-privacy-requests" method="POST" action="https://api.web3forms.com/submit">
+        <input type="hidden" name="subject" value="Kenny Flynn memorial privacy request">
+        <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="honeypot" aria-hidden="true">
+          <label>Do not fill this out: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+        </p>
+
+        <div class="form-row">
+          <label>
+            <span>Your name</span>
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label>
+            <span>Email used with the original submission</span>
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+        </div>
+
+        <label>
+          <span>Correction or removal request</span>
+          <textarea name="request" rows="5" minlength="10" required placeholder="Describe the submission and the change you are requesting."></textarea>
+        </label>
+
+        <button class="button button-primary form-submit" type="submit">Send Private Request</button>
+        <p class="form-status" id="privacy-form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <h2>Third-party services</h2>
+      <p>Memory submissions and private correction or removal requests are delivered through <a href="https://web3forms.com" target="_blank" rel="noopener noreferrer">Web3Forms</a>. The memorial is hosted on GitHub Pages. Those providers process only the information needed to operate the form and serve the site.</p>
+
+      <p>This page is a practical starter policy and should be reviewed by the site owner before public launch.</p>
+      <a class="legal-back" href="index.html">← Return to the memorial</a>
+    </article>
+  </main>
+
+  <script src="content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

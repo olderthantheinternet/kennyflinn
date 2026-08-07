@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//KennyFlynn.com//Celebration of Life//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:celebration-20260822@kennyflynn.com
+DTSTAMP:20260806T170000Z
+DTSTART:20260822T220000Z
+DTEND:20260823T030000Z
+SUMMARY:Celebration of Life for Kenny Flynn
+DESCRIPTION:A gathering to celebrate Kenny Flynn and the life, relationships, and Atlanta nightlife legacy he leaves behind. Please confirm any updates through the official event page.
+LOCATION:1935 Powers Ferry Rd SE\, Atlanta\, GA 30339
+URL:https://www.facebook.com/events/1511740986931617/
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
