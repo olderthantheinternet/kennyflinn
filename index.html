@@ -58,6 +58,7 @@
         <a href="#story">His Story</a>
         <a href="#legacy">Legacy</a>
         <a href="#memories">Memories</a>
+        <a href="#gallery">Gallery</a>
         <a href="#celebration">Celebration</a>
       </nav>
     </div>
@@ -231,6 +232,7 @@
               <span>Optional photo or video link</span>
               <input type="url" name="media-link" inputmode="url" placeholder="Google Drive, Dropbox, YouTube, Vimeo…">
             </label>
+            <p class="form-media-hint">To contribute photos for the public gallery, email them to <a data-gallery-email href="mailto:">the memorial organizer</a>. Files are reviewed before publication.</p>
 
             <label class="consent-row">
               <input type="checkbox" name="permission" value="yes" required>
@@ -245,10 +247,49 @@
       </div>
     </section>
 
+    <section class="section gallery-section" id="gallery" aria-labelledby="gallery-title">
+      <div class="section-shell">
+        <div class="section-heading section-heading-split reveal">
+          <div>
+            <p class="section-number">04 / Gallery</p>
+            <h2 id="gallery-title">Moments worth keeping<br>in the light.</h2>
+          </div>
+          <p class="section-deck">A curated collection of photographs shared by friends, family, and the rooms Kenny filled. Every image is reviewed before it appears here.</p>
+        </div>
+
+        <div class="gallery-contribute reveal" id="gallery-contribute">
+          <p>Have a photo to share? Email it to <a data-gallery-email href="mailto:">the memorial organizer</a> with permission to publish, or include a link when you <a href="#memories" data-focus-memory>share a memory</a>.</p>
+        </div>
+
+        <div class="gallery-empty reveal" id="gallery-empty" hidden>
+          <p class="gallery-empty-kicker">The archive is just beginning</p>
+          <p>Approved photographs will appear here. Email yours to <a data-gallery-email href="mailto:">the memorial organizer</a> and they will be reviewed before publication.</p>
+          <a class="button button-secondary" data-gallery-email href="mailto:">Email a Photo</a>
+        </div>
+
+        <div class="gallery-grid" id="gallery-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <dialog class="gallery-lightbox" id="gallery-lightbox" aria-label="Photo viewer">
+      <div class="gallery-lightbox-shell">
+        <button class="gallery-lightbox-close" type="button" aria-label="Close photo viewer">Close</button>
+        <button class="gallery-lightbox-nav gallery-lightbox-prev" type="button" aria-label="Previous photo">‹</button>
+        <figure class="gallery-lightbox-figure">
+          <img id="gallery-lightbox-image" src="" alt="">
+          <figcaption>
+            <p id="gallery-lightbox-caption"></p>
+            <p id="gallery-lightbox-credit"></p>
+          </figcaption>
+        </figure>
+        <button class="gallery-lightbox-nav gallery-lightbox-next" type="button" aria-label="Next photo">›</button>
+      </div>
+    </dialog>
+
     <section class="section celebration-section" id="celebration" aria-labelledby="celebration-title">
       <div class="section-shell">
         <div class="celebration-heading reveal">
-          <p class="section-number">04 / Celebration</p>
+          <p class="section-number">05 / Celebration</p>
           <h2 id="celebration-title">One more room.<br>Filled with his people.</h2>
           <p>A gathering to celebrate the life, stories, friendships, and unforgettable Atlanta legacy of Kenny Flynn.</p>
         </div>
@@ -317,6 +358,7 @@
         <a href="#story">His Story</a>
         <a href="#legacy">Legacy</a>
         <a href="#memories">Memories</a>
+        <a href="#gallery">Gallery</a>
         <a href="#celebration">Celebration</a>
         <a href="privacy.html">Privacy</a>
       </nav>

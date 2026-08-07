@@ -8,8 +8,9 @@ The visual system uses black, charcoal grey, midnight blue, medium blue, ivory, 
 
 - Full-screen memorial hero
 - Sticky desktop navigation and accessible mobile menu
-- His Story, Legacy, Memories, and Celebration sections
+- His Story, Legacy, Memories, Gallery, and Celebration sections
 - Celebration of Life event card with directions, official event link, and downloadable calendar file
+- Curated photo gallery loaded from `assets/gallery/manifest.json`
 - Memory submission form via [Web3Forms](https://web3forms.com)
 - Local draft recovery when the form endpoint is not connected
 - Persistent “Light a Candle” interaction on each visitor’s device
@@ -111,6 +112,38 @@ Also replace `assets/og-kenny-flynn.jpg` with a family-approved 1200 × 630 soci
 5. Honor correction or removal requests promptly.
 
 The form does not publish entries automatically. That is intentional.
+
+## Photo gallery workflow (email → assets)
+
+Visitors do **not** upload files directly to GitHub. They email photos to the address in [`content.js`](content.js) (`galleryEmail`), or share a media link through the memory form. You review and publish approved images into the repo.
+
+1. Receive the photo by email (or follow a media link from Web3Forms).
+2. Confirm the sender grants permission to publish on KennyFlynn.com.
+3. Compress/export the image (prefer JPEG or WebP, typically under **5 MB**; hard GitHub limit is **100 MB** per file).
+4. Save it under [`assets/gallery/`](assets/gallery/) with a clear filename, e.g. `2024-club-esso-01.webp`.
+5. Add an entry to [`assets/gallery/manifest.json`](assets/gallery/manifest.json):
+
+```json
+{
+  "items": [
+    {
+      "src": "assets/gallery/2024-club-esso-01.webp",
+      "alt": "Kenny with friends at Club Esso",
+      "caption": "A night at Club Esso",
+      "credit": "Photo courtesy of…"
+    }
+  ]
+}
+```
+
+6. Commit and push to `main`. GitHub Pages redeploys automatically.
+
+Guidance:
+
+- Photos-first for v1. Prefer hosting longer videos on YouTube/Vimeo and linking them from a memory instead of storing large video files in git.
+- Keep the gallery lean so Pages stays fast.
+- Update `galleryEmail` in `content.js` if the public contribution inbox changes.
+- Empty `items` shows an on-page empty state with the email CTA.
 
 ## Image and content rights
 
