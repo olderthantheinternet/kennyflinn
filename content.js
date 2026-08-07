@@ -1,16 +1,21 @@
 /**
  * KennyFlynn.com content settings
  *
- * Edit the values in this file to update event details
- * and form delivery without touching the page layout.
+ * Edit the values in this file to update event details,
+ * form delivery, and the public gallery email without
+ * touching the page layout.
  *
  * Create a free Web3Forms access key at https://web3forms.com
  * and paste it below to enable memory and privacy form delivery.
+ *
+ * galleryEmail is shown on the site for photo contributions.
  */
 window.KENNY_FLYNN_SITE = Object.freeze({
   domain: "KennyFlynn.com",
   formAccessKey: "eb3bd5d8-2e56-4bc3-959e-8db50d3f332b",
   formEndpoint: "https://api.web3forms.com/submit",
+  galleryEmail: "kgable38@gmail.com",
+  galleryManifestUrl: "assets/gallery/manifest.json",
   event: {
     label: "Celebration of Life",
     date: "Saturday, August 22, 2026",

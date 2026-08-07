@@ -38,6 +38,19 @@
     setText("[data-event-day]", day);
   }
 
+  const galleryEmail = typeof config.galleryEmail === "string" ? config.galleryEmail.trim() : "";
+  if (galleryEmail) {
+    const mailto = `mailto:${galleryEmail}?subject=${encodeURIComponent("Kenny Flynn memorial photo")}`;
+    document.querySelectorAll("[data-gallery-email]").forEach((element) => {
+      element.setAttribute("href", mailto);
+      if (element.tagName === "A" && !element.classList.contains("button") && element.textContent.trim() === "the memorial organizer") {
+        element.textContent = galleryEmail;
+      } else if (element.classList.contains("button")) {
+        element.textContent = "Email a Photo";
+      }
+    });
+  }
+
 
   const closeMenu = () => {
     if (!menuButton || !nav) return;
@@ -68,24 +81,31 @@
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
 
-  const revealElements = [...document.querySelectorAll(".reveal")];
-  if ("IntersectionObserver" in window) {
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
-    );
+  let revealObserver = null;
+  const observeReveal = (elements) => {
+    const list = [...elements];
+    if (!list.length) return;
+    if ("IntersectionObserver" in window) {
+      if (!revealObserver) {
+        revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+        );
+      }
+      list.forEach((element) => revealObserver.observe(element));
+    } else {
+      list.forEach((element) => element.classList.add("is-visible"));
+    }
+  };
 
-    revealElements.forEach((element) => revealObserver.observe(element));
-  } else {
-    revealElements.forEach((element) => element.classList.add("is-visible"));
-  }
+  observeReveal(document.querySelectorAll(".reveal"));
 
   const sections = navLinks
     .map((link) => document.querySelector(link.getAttribute("href")))
@@ -314,4 +334,117 @@
 
   const year = document.getElementById("current-year");
   if (year) year.textContent = String(new Date().getFullYear());
+
+  const galleryGrid = document.getElementById("gallery-grid");
+  const galleryEmpty = document.getElementById("gallery-empty");
+  const galleryLightbox = document.getElementById("gallery-lightbox");
+  const galleryLightboxImage = document.getElementById("gallery-lightbox-image");
+  const galleryLightboxCaption = document.getElementById("gallery-lightbox-caption");
+  const galleryLightboxCredit = document.getElementById("gallery-lightbox-credit");
+  const galleryManifestUrl = config.galleryManifestUrl || "assets/gallery/manifest.json";
+
+  const initGallery = async () => {
+    if (!galleryGrid) return;
+
+    let items = [];
+    try {
+      const response = await fetch(galleryManifestUrl, { cache: "no-cache" });
+      if (!response.ok) throw new Error(`Gallery manifest failed with status ${response.status}`);
+      const manifest = await response.json();
+      items = Array.isArray(manifest) ? manifest : Array.isArray(manifest.items) ? manifest.items : [];
+    } catch (error) {
+      console.warn("Could not load the gallery manifest.", error);
+      items = [];
+    }
+
+    items = items.filter((item) => item && typeof item.src === "string" && item.src.trim());
+
+    if (!items.length) {
+      galleryGrid.replaceChildren();
+      if (galleryEmpty) galleryEmpty.hidden = false;
+      return;
+    }
+
+    if (galleryEmpty) galleryEmpty.hidden = true;
+
+    let activeIndex = 0;
+
+    const showLightboxItem = (index) => {
+      if (!items.length || !galleryLightboxImage) return;
+      activeIndex = (index + items.length) % items.length;
+      const item = items[activeIndex];
+      galleryLightboxImage.src = item.src;
+      galleryLightboxImage.alt = item.alt || item.caption || "Memorial photograph";
+      if (galleryLightboxCaption) galleryLightboxCaption.textContent = item.caption || "";
+      if (galleryLightboxCredit) {
+        galleryLightboxCredit.textContent = item.credit ? `Credit: ${item.credit}` : "";
+      }
+    };
+
+    const openLightbox = (index) => {
+      if (!galleryLightbox || typeof galleryLightbox.showModal !== "function") return;
+      showLightboxItem(index);
+      if (!galleryLightbox.open) galleryLightbox.showModal();
+    };
+
+    const closeLightbox = () => {
+      if (galleryLightbox && galleryLightbox.open) galleryLightbox.close();
+    };
+
+    const fragment = document.createDocumentFragment();
+    items.forEach((item, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "gallery-item reveal";
+      button.setAttribute("aria-label", item.alt || item.caption || `View photograph ${index + 1}`);
+
+      const image = document.createElement("img");
+      image.src = item.src;
+      image.alt = item.alt || item.caption || "";
+      image.loading = "lazy";
+      image.decoding = "async";
+
+      const meta = document.createElement("div");
+      meta.className = "gallery-item-meta";
+      if (item.caption) {
+        const caption = document.createElement("p");
+        caption.textContent = item.caption;
+        meta.appendChild(caption);
+      }
+      if (item.credit) {
+        const credit = document.createElement("small");
+        credit.textContent = item.credit;
+        meta.appendChild(credit);
+      }
+
+      button.append(image, meta);
+      button.addEventListener("click", () => openLightbox(index));
+      fragment.appendChild(button);
+    });
+
+    galleryGrid.replaceChildren(fragment);
+    observeReveal(galleryGrid.querySelectorAll(".reveal"));
+
+    if (!galleryLightbox) return;
+
+    const closeButton = galleryLightbox.querySelector(".gallery-lightbox-close");
+    const prevButton = galleryLightbox.querySelector(".gallery-lightbox-prev");
+    const nextButton = galleryLightbox.querySelector(".gallery-lightbox-next");
+
+    if (closeButton) closeButton.addEventListener("click", closeLightbox);
+    if (prevButton) prevButton.addEventListener("click", () => showLightboxItem(activeIndex - 1));
+    if (nextButton) nextButton.addEventListener("click", () => showLightboxItem(activeIndex + 1));
+
+    galleryLightbox.addEventListener("click", (event) => {
+      if (event.target === galleryLightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!galleryLightbox.open) return;
+      if (event.key === "ArrowLeft") showLightboxItem(activeIndex - 1);
+      if (event.key === "ArrowRight") showLightboxItem(activeIndex + 1);
+    });
+  };
+
+  initGallery();
 })();
