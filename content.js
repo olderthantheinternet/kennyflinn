@@ -9,7 +9,7 @@
  */
 window.KENNY_FLYNN_SITE = Object.freeze({
   domain: "KennyFlynn.com",
-  formAccessKey: "YOUR_WEB3FORMS_ACCESS_KEY",
+  formAccessKey: "eb3bd5d8-2e56-4bc3-959e-8db50d3f332b",
   formEndpoint: "https://api.web3forms.com/submit",
   event: {
     label: "Celebration of Life",
