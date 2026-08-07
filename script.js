@@ -51,6 +51,10 @@
     });
   }
 
+  const support = config.support || {};
+  if (support.navLabel) setText("[data-support-nav]", support.navLabel);
+  if (support.url) setHref("[data-support-link]", support.url);
+
 
   const closeMenu = () => {
     if (!menuButton || !nav) return;
