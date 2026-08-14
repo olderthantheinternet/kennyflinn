@@ -412,6 +412,24 @@ button {
   margin-top: 38px;
 }
 
+.hero-player {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 50px;
+  margin-top: 22px;
+  overflow: hidden;
+}
+
+.hero-player iframe {
+  position: absolute;
+  top: -90px;
+  left: 0;
+  width: 400px;
+  height: 225px;
+  border: 0;
+}
+
 .button {
   position: relative;
   display: inline-flex;
@@ -2066,6 +2084,10 @@ button {
 
   .hero-actions .button {
     width: 100%;
+  }
+
+  .hero-player {
+    max-width: 100%;
   }
 
   .hero-event-teaser {
