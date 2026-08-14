@@ -88,13 +88,16 @@
             <a class="button button-secondary" href="#memories" data-focus-memory>Share a Memory</a>
           </div>
 
-          <div class="hero-player" aria-label="Send Me An Angel by Real Life">
-            <iframe
-              src="https://www.youtube.com/embed/0R6WIbx8ysE?controls=1&rel=0"
-              title="Real Life - Send Me An Angel '89"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+          <div class="hero-audio" id="hero-audio">
+            <button class="hero-audio-toggle" id="hero-audio-toggle" type="button" aria-pressed="false" aria-label="Play Send Me An Angel ’89">
+              <span class="hero-audio-icon" aria-hidden="true"></span>
+            </button>
+            <div class="hero-audio-copy">
+              <p class="hero-audio-kicker">Listen</p>
+              <p class="hero-audio-title" data-audio-title>Send Me An Angel ’89</p>
+              <p class="hero-audio-artist" data-audio-artist>Real Life</p>
+            </div>
+            <div class="hero-audio-engine" id="hero-audio-engine" aria-hidden="true"></div>
           </div>
 
           <a class="hero-event-teaser" href="#celebration" aria-label="View celebration of life details">

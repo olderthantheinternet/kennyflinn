@@ -451,4 +451,102 @@
   };
 
   initGallery();
+
+  const audioToggle = document.getElementById("hero-audio-toggle");
+  const audioEngine = document.getElementById("hero-audio-engine");
+  const audio = config.audio || {};
+  const audioTitle = audio.title || "Send Me An Angel ’89";
+  const audioArtist = audio.artist || "Real Life";
+  const youtubeId = audio.youtubeId || "";
+
+  setText("[data-audio-title]", audioTitle);
+  setText("[data-audio-artist]", audioArtist);
+
+  if (audioToggle && audioEngine && youtubeId) {
+    let player = null;
+    let isPlaying = false;
+    let apiReady = null;
+
+    const setPlaying = (playing) => {
+      isPlaying = playing;
+      audioToggle.classList.toggle("is-playing", playing);
+      audioToggle.setAttribute("aria-pressed", String(playing));
+      audioToggle.setAttribute("aria-label", playing ? `Stop ${audioTitle}` : `Play ${audioTitle}`);
+    };
+
+    const loadYouTubeApi = () => {
+      if (window.YT && window.YT.Player) return Promise.resolve();
+      if (apiReady) return apiReady;
+
+      apiReady = new Promise((resolve, reject) => {
+        const existingCallback = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = () => {
+          if (typeof existingCallback === "function") existingCallback();
+          resolve();
+        };
+
+        const script = document.createElement("script");
+        script.src = "https://www.youtube.com/iframe_api";
+        script.onerror = () => reject(new Error("Could not load YouTube audio."));
+        document.head.appendChild(script);
+      });
+
+      return apiReady;
+    };
+
+    const ensurePlayer = async () => {
+      if (player) return player;
+      await loadYouTubeApi();
+      player = await new Promise((resolve, reject) => {
+        let settled = false;
+        const timeout = window.setTimeout(() => {
+          if (!settled) reject(new Error("YouTube audio timed out."));
+        }, 8000);
+
+        new window.YT.Player("hero-audio-engine", {
+          width: "200",
+          height: "200",
+          videoId: youtubeId,
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            modestbranding: 1,
+            playsinline: 1,
+            rel: 0
+          },
+          events: {
+            onReady: (event) => {
+              settled = true;
+              window.clearTimeout(timeout);
+              resolve(event.target);
+            },
+            onStateChange: (event) => {
+              if (event.data === window.YT.PlayerState.ENDED) setPlaying(false);
+              if (event.data === window.YT.PlayerState.PLAYING) setPlaying(true);
+              if (event.data === window.YT.PlayerState.PAUSED) setPlaying(false);
+            },
+            onError: () => {
+              settled = true;
+              window.clearTimeout(timeout);
+              reject(new Error("Could not start the song."));
+            }
+          }
+        });
+      });
+      return player;
+    };
+
+    audioToggle.addEventListener("click", async () => {
+      try {
+        const youtubePlayer = await ensurePlayer();
+        if (isPlaying) youtubePlayer.pauseVideo();
+        else youtubePlayer.playVideo();
+      } catch (error) {
+        console.warn(error);
+        window.open(`https://www.youtube.com/watch?v=${youtubeId}`, "_blank", "noopener,noreferrer");
+      }
+    });
+  }
 })();
